@@ -1,0 +1,32 @@
+{
+  "services": [
+    {
+      "name": "backend",
+      "root": "Backend",
+      "buildCommand": "mvn clean package -DskipTests",
+      "startCommand": "java -jar target/teamtaskmanager-0.0.1-SNAPSHOT.jar",
+      "environmentVariables": {
+        "PORT": "8080",
+        "SPRING_DATASOURCE_URL": "$DATABASE_URL",
+        "SPRING_DATASOURCE_USERNAME": "$DATABASE_USERNAME",
+        "SPRING_DATASOURCE_PASSWORD": "$DATABASE_PASSWORD",
+        "JWT_SECRET": "$JWT_SECRET",
+        "JWT_EXPIRATION_MS": "$JWT_EXPIRATION_MS"
+      }
+    },
+    {
+      "name": "frontend",
+      "root": "frontend",
+      "buildCommand": "npm install && npm run build",
+      "startCommand": "npx serve -s build -l 3000",
+      "environmentVariables": {
+        "REACT_APP_API_BASE": "$API_BASE_URL"
+      }
+    }
+  ],
+  "plugins": [
+    {
+      "source": "railway/mysql"
+    }
+  ]
+}
